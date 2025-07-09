@@ -1,12 +1,12 @@
-from commentgetter import fetch_comments
+from commentgetter import fetch_comments, ipgetter
 from dataio import get_header, get_videos, save_comments, load_comments
-
-MAX_FETCH_PAGES = 25
 from db.database import CommentDatabase
 
+MAX_FETCH_PAGES = 100
 
-def init_db():
-    db = CommentDatabase()
+
+def init_db() -> None:
+    CommentDatabase()
 
 
 def get_data_from_web():
@@ -56,8 +56,13 @@ def show_comments():
     print(f"所有评论{len(comments)}条已显示。")
 
 
+def demo():
+    print(ipgetter("uid1236"))
+
+
 def main():
     # get_data_from_web()
+    # init_db()
     # add_videos()
     # add_comments()
     show_comments()

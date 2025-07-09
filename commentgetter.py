@@ -1,8 +1,18 @@
 import requests
 import time
+import subprocess
 
 
-def fetch_comments(video_name, video_id, headers, max_pages=100):
+def ipgetter(user_id: str) -> str:
+    result = subprocess.run(
+        ['getip.exe', '-s', user_id],
+        capture_output=True,
+        text=True,
+    )
+    return result.stdout.strip() if result.returncode == 0 else '未知IP属地'
+
+
+def fetch_comments(video_name: str, video_id: str, headers: dict, max_pages: int = 100) -> list[dict]:
     comments = []
     seen_ids = set()
     next_val = 1
@@ -12,6 +22,10 @@ def fetch_comments(video_name, video_id, headers, max_pages=100):
             response = requests.get(url, headers=headers, timeout=10)
             if response.status_code == 200:
                 data = response.json()
+                # save data for ananlyze:
+                # with open(f'data/{video_id}_page_{page}.json', 'w', encoding='utf-8') as f:
+                #     f.write(response.text)
+                # breakpoint()
                 print(f"第{page}页")
                 if not data['data'] or data['data']['replies'] is None:
                     break
@@ -24,7 +38,7 @@ def fetch_comments(video_name, video_id, headers, max_pages=100):
                         '视频名': video_name,
                         '视频id': video_id,
                         '用户昵称': comment['member']['uname'],
-                        "用户IP属地": "四川",
+                        "用户IP属地": ipgetter(comment['member']['uname']),
                         '评论内容': comment['content']['message'],
                         '性别': comment['member']['sex'],
                         '用户当前等级': comment['member']['level_info']['current_level'],
@@ -44,4 +58,3 @@ def fetch_comments(video_name, video_id, headers, max_pages=100):
             break
         time.sleep(0.75)
     return comments
-

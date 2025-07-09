@@ -1,17 +1,17 @@
 import json
 
 
-def get_header(path="data/header.json") -> dict:
+def get_header(path: str = "data/header.json") -> dict:
     with open(path, "r", encoding="utf-8") as f:
         return json.load(f)
 
 
-def get_videos(path="data/videos.json") -> list:
+def get_videos(path: str = "data/videos.json") -> list:
     with open(path, "r", encoding="utf-8") as f:
         return json.load(f)
 
 
-def save_comments(comments, path="data/comments.json"):
+def save_comments(comments: list[dict], path: str = "data/comments.json") -> None:
     try:
         with open(path, "r", encoding="utf-8") as f:
             old_comments = json.load(f)
