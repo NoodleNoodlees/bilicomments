@@ -9,8 +9,9 @@ def init_db() -> None:
     CommentDatabase()
 
 
-def get_data_from_web():
-    videos = get_videos()
+def get_data_from_web(videos=None) -> None:
+    if videos is None:
+        videos = get_videos()
     header = get_header()
 
     for video_info in videos:
@@ -61,10 +62,10 @@ def demo():
 
 
 def main():
-    # get_data_from_web()
+    get_data_from_web(videos=get_videos()[20:])
     # init_db()
-    # add_videos()
-    # add_comments()
+    add_videos()
+    add_comments()
     show_comments()
 
 
