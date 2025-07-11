@@ -1,6 +1,7 @@
 from commentgetter import fetch_comments, ipgetter
 from dataio import get_header, get_videos, save_comments, load_comments
 from db.database import CommentDatabase
+from iprenew.iprenewer import renew
 
 MAX_FETCH_PAGES = 100
 
@@ -62,11 +63,12 @@ def demo():
 
 
 def main():
-    get_data_from_web(videos=get_videos()[20:])
-    # init_db()
-    add_videos()
-    add_comments()
-    show_comments()
+    # get_data_from_web(videos=get_videos()[20:])
+    # # init_db()
+    # add_videos()
+    # add_comments()
+    # show_comments()
+    renew()
 
 
 if __name__ == '__main__':
