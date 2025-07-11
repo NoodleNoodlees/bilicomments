@@ -63,12 +63,12 @@ def demo():
 
 
 def main():
-    # get_data_from_web(videos=get_videos()[20:])
-    # # init_db()
+    get_data_from_web(videos=get_videos()[20:])
+    init_db()
     # add_videos()
     # add_comments()
     # show_comments()
-    renew()
+    # renew()
 
 
 if __name__ == '__main__':
